@@ -6,9 +6,9 @@ ENV PYTHONUNBUFFERED 1
 
 RUN pip install imageio imageio-ffmpeg==0.4.4 pyspng==0.1.0
 
-RUN useradd -u 1001 -m student
+RUN adduser --uid 1001 --shell /bin/bash student
 
-RUN chown --recursive student:student /home/student
+RUN chown -R 1001:1001 /home/student
 
 USER student
 WORKDIR /home/student
