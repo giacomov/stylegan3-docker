@@ -10,7 +10,7 @@ RUN adduser --uid 1001 --shell /bin/bash student
 
 RUN chown -R 1001:1001 /home/student
 
-USER student
+USER 1001
 WORKDIR /home/student
 
 RUN git clone https://github.com/NVlabs/stylegan3.git
