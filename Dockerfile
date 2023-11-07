@@ -10,11 +10,11 @@ RUN apt update && apt install -y git g++ && apt-get clean &&  rm -rf /var/lib/ap
 COPY environment.yml .
 RUN conda env update -n base -f environment.yml && conda clean --all -y
 
-RUN useradd -u 1001 -m student
+RUN adduser --uid 1001 --shell /bin/bash student
 
-RUN chown --recursive student:student /home/student
+RUN chown -R 1001:1001 /home/student
 
-USER student
+USER 1001
 WORKDIR /home/student
 
 RUN git clone https://github.com/NVlabs/stylegan3.git
