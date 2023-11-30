@@ -4,7 +4,7 @@ nvcc = /usr/local/cuda/bin/nvcc
 
 cflags = -DTORCH_EXTENSION_NAME=bias_act_plugin -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.8/site-packages/torch/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.8/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.8 -D_GLIBCXX_USE_CXX11_ABI=0 -fPIC -std=c++14
 post_cflags = 
-cuda_cflags = -DTORCH_EXTENSION_NAME=bias_act_plugin -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.8/site-packages/torch/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.8/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.8 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_86,code=compute_86 -gencode=arch=compute_86,code=sm_86 --compiler-options '-fPIC' --use_fast_math --allow-unsupported-compiler -std=c++14
+cuda_cflags = -DTORCH_EXTENSION_NAME=bias_act_plugin -DTORCH_API_INCLUDE_EXTENSION_H -DPYBIND11_COMPILER_TYPE=\"_gcc\" -DPYBIND11_STDLIB=\"_libstdcpp\" -DPYBIND11_BUILD_ABI=\"_cxxabi1011\" -isystem /opt/conda/lib/python3.8/site-packages/torch/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/torch/csrc/api/include -isystem /opt/conda/lib/python3.8/site-packages/torch/include/TH -isystem /opt/conda/lib/python3.8/site-packages/torch/include/THC -isystem /usr/local/cuda/include -isystem /opt/conda/include/python3.8 -D_GLIBCXX_USE_CXX11_ABI=0 -D__CUDA_NO_HALF_OPERATORS__ -D__CUDA_NO_HALF_CONVERSIONS__ -D__CUDA_NO_BFLOAT16_CONVERSIONS__ -D__CUDA_NO_HALF2_OPERATORS__ --expt-relaxed-constexpr -gencode=arch=compute_75,code=compute_75 -gencode=arch=compute_75,code=sm_75 --compiler-options '-fPIC' --use_fast_math --allow-unsupported-compiler -std=c++14
 cuda_post_cflags = 
 ldflags = -shared -L/opt/conda/lib/python3.8/site-packages/torch/lib -lc10 -lc10_cuda -ltorch_cpu -ltorch_cuda_cu -ltorch_cuda_cpp -ltorch -ltorch_python -L/usr/local/cuda/lib64 -lcudart
 
@@ -21,8 +21,8 @@ rule cuda_compile
 rule link
   command = $cxx $in $ldflags -o $out
 
-build bias_act.o: compile /root/.cache/torch_extensions/py38_cu113/bias_act_plugin/3cb576a0039689487cfba59279dd6d46-nvidia-l4/bias_act.cpp
-build bias_act.cuda.o: cuda_compile /root/.cache/torch_extensions/py38_cu113/bias_act_plugin/3cb576a0039689487cfba59279dd6d46-nvidia-l4/bias_act.cu
+build bias_act.o: compile /root/.cache/torch_extensions/py38_cu113/bias_act_plugin/3cb576a0039689487cfba59279dd6d46-tesla-t4/bias_act.cpp
+build bias_act.cuda.o: cuda_compile /root/.cache/torch_extensions/py38_cu113/bias_act_plugin/3cb576a0039689487cfba59279dd6d46-tesla-t4/bias_act.cu
 
 build bias_act_plugin.so: link bias_act.o bias_act.cuda.o
 
