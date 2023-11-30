@@ -83,7 +83,7 @@ def get_plugin(module_name, sources, headers=None, source_dir=None, **build_kwar
         torch.utils.cpp_extension._import_module_from_library(module_name, lib_path, True)
         module = importlib.import_module(module_name)
     except Exception:
-        import pdb;pdb.set_trace()
+        raise
     else:
         _cached_plugins[module_name] = module
         return module
